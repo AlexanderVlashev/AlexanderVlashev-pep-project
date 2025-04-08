@@ -119,8 +119,11 @@ public class SocialMediaController {
 
     private void updateMessageHandler(Context context){
         int id = Integer.valueOf(context.pathParam("message_id"));
+        String JsonString = context.body();
+        int split = JsonString.indexOf(":");
+        
 
-        Message message = messageService.updateMessage(id, context.body());
+        Message message = messageService.updateMessage(id, JsonString.substring(split+3, JsonString.length()-3));
         
         if(message == null){
             context.status(400);

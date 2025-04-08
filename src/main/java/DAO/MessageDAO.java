@@ -16,7 +16,7 @@ public class MessageDAO {
     public Message createMessage(Message message){
         try(Connection conn = ConnectionUtil.getConnection()){
             
-            String sql = "INSERT INTO message(posted_by, message_text, time_posted_enoch) VALUES(?,?,?)";
+            String sql = "INSERT INTO message(posted_by, message_text, time_posted_epoch) VALUES(?,?,?)";
             PreparedStatement request = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             request.setInt(1, message.getPosted_by());
@@ -75,7 +75,7 @@ public class MessageDAO {
         try (Connection conn = ConnectionUtil.getConnection()){
             String sql = "SELECT * FROM message WHERE message_id = ?";
             PreparedStatement s = conn.prepareStatement(sql);
-            s.setInt(0, messageId);
+            s.setInt(1, messageId);
 
             ResultSet result = s.executeQuery();
 
