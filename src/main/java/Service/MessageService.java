@@ -14,7 +14,7 @@ public class MessageService {
     }
 
     public Message createMessage(Message message){
-        if(message.getMessage_text().length() == 0 && message.getMessage_text().length() > 255){
+        if(message.getMessage_text().length() == 0 || message.getMessage_text().length() > 255){
             return null;
         }
         
@@ -36,7 +36,7 @@ public class MessageService {
     }
 
     public Message updateMessage(int messageID, String text){
-        if(text.length() == 0 && text.length() > 255){
+        if(text.length() == 0 || text.length() > 255){
             return null;
         }
         

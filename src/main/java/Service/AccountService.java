@@ -13,7 +13,7 @@ public class AccountService {
 
     public Account createAccount(Account account){
         
-        if(account.getPassword().length() < 4){
+        if(account.getPassword().length() < 4 || account.getUsername().length() == 0){
             return null;
         }
         

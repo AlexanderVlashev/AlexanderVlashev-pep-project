@@ -13,20 +13,7 @@ public class AccountDAO {
 
     public Account createAccount(Account account){
         try(Connection conn = ConnectionUtil.getConnection()){
-            
-            // Checks if the username already exists
-            conn.setAutoCommit(false);
-            String sql = "SELECT * FROM account WHERE username = ?";
-            PreparedStatement s = conn.prepareStatement(sql);
-            ResultSet r = s.executeQuery();
 
-            if(r.next()){
-                conn.setAutoCommit(true);
-                return null;
-            }
-            
-        
-            //Inserts the username and password into the system
             String sql2 = "INSERT INTO account(username, password) VALUES(?,?)";
             PreparedStatement s2 = conn.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
 
@@ -60,6 +47,8 @@ public class AccountDAO {
             
             String sql = "SELECT * FROM account WHERE username = ? AND password = ?";
             PreparedStatement s = conn.prepareStatement(sql);
+            s.setString(1, account.getUsername());
+            s.setString(2, account.getPassword());
 
             ResultSet result = s.executeQuery();
 

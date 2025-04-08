@@ -1,6 +1,5 @@
 package Controller;
 
-import java.beans.IntrospectionException;
 import java.util.List;
 
 import Model.Account;
@@ -67,7 +66,7 @@ public class SocialMediaController {
 
         Account checkedAccount = accountService.logIn(potentialAccount);
         if(checkedAccount == null){
-            context.status(400);
+            context.status(401);
         } else {
             context.json(checkedAccount);
             context.status(200);
@@ -121,7 +120,7 @@ public class SocialMediaController {
     private void updateMessageHandler(Context context){
         int id = Integer.valueOf(context.pathParam("message_id"));
 
-        Message message = messageService.updateMessage(id, context.bodyAsClass(String.class));
+        Message message = messageService.updateMessage(id, context.body());
         
         if(message == null){
             context.status(400);
