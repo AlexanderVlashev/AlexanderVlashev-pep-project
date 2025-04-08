@@ -13,6 +13,11 @@ import Util.ConnectionUtil;
 
 public class MessageDAO {
     
+    /*
+     * Connects to the database and inserts an message into the database
+     * @param message the message that we are trying to insert
+     * @returns the message that was inserted with it's id or null if something went wrong
+     */
     public Message createMessage(Message message){
         try(Connection conn = ConnectionUtil.getConnection()){
             
@@ -44,6 +49,10 @@ public class MessageDAO {
         return null;
     }
 
+        /*
+     * Connects to the database and returns all messages in the database
+     * @returns a list of  messages or null if something went wrong
+     */
     public List<Message> getAllMessages(){
         try(Connection conn = ConnectionUtil.getConnection()){
 
@@ -71,6 +80,11 @@ public class MessageDAO {
         return null;
     }
 
+    /*
+     * Connects to the database and tries to find a message based on it's messageID
+     * @param message the messageID of the message it is trying to find
+     * @returns the message that it was searching for or null if something went wrong
+     */
     public Message getMessageById(int messageId){
         try (Connection conn = ConnectionUtil.getConnection()){
             String sql = "SELECT * FROM message WHERE message_id = ?";
@@ -95,6 +109,10 @@ public class MessageDAO {
         return null;
     }
 
+    /*
+     * Connects to the database and deletes a message into the database
+     * @param messageid the messageid of the message that we are trying to delete
+     */
     public void deleteMessage(int messageId){
         try (Connection conn = ConnectionUtil.getConnection()){
             
@@ -110,6 +128,12 @@ public class MessageDAO {
 
     }
 
+    /*
+     * Connects to the database and updates a message's text
+     * @param messageID the message_id of the message whose text we are updatingt
+     * @param text the new text that is replacing the old text of the message.
+     * @returns a boolean for if the message was successfuly updated or not
+     */
     public boolean updateMessage(int messageID, String text){
         try (Connection conn = ConnectionUtil.getConnection()){
             String sql = "UPDATE message SET message_text = ? WHERE message_id = ?";
@@ -132,7 +156,11 @@ public class MessageDAO {
 
         return false;
     }
-
+    /*
+     * Connects to the database and gets a list of all messages from a user
+     * @param userID the id of the user whose message we are trying to find
+     * @returns a list of all messages from the given user or null if something went wrong
+     */
     public List<Message> getAllUserMessage(int userId){
         try (Connection conn = ConnectionUtil.getConnection()){
             String sql = "SELECT * FROM message WHERE posted_by = ?";

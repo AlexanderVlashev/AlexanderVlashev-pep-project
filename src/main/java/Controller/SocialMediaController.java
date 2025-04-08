@@ -10,7 +10,7 @@ import io.javalin.Javalin;
 import io.javalin.http.Context;
 
 /**
- * TODO: You will need to write your own endpoints and handlers for your controller. The endpoints you will need can be
+ * You will need to write your own endpoints and handlers for your controller. The endpoints you will need can be
  * found in readme.md as well as the test cases. You should
  * refer to prior mini-project labs and lecture materials for guidance on how a controller may be built.
  */
@@ -47,7 +47,12 @@ public class SocialMediaController {
     private void exampleHandler(Context context) {
         context.json("sample text");
     }
-
+    /*
+     * This handles creating an account. If the account is created then the account info is set as the body
+     * and status is set to 200. If not then status is set to 400. The username can't be blank and the password can't be
+     * less then 4 characters.
+     * @param context The Javalin Context object manages information about both the HTTP request and response.
+     */
     private void createAccountHandler(Context context){
         Account potentialAccount = context.bodyAsClass(Account.class);
 
@@ -60,7 +65,11 @@ public class SocialMediaController {
             context.status(200);
         }
     }
-
+        /*
+     * This handles logining into an account. If the account is successfully loged in then the account info is set as the body
+     * and status is set to 200. If not then status is set to 401.
+     * @param context The Javalin Context object manages information about both the HTTP request and response.
+     */
     private void loginHandler(Context context){
         Account potentialAccount = context.bodyAsClass(Account.class);
 
@@ -73,7 +82,11 @@ public class SocialMediaController {
         }
         
     }
-
+    /*
+     * This handles creating a message. If the message is created then the messsage info is set as the body
+     * and status is set to 200. If not then status is set to 400. The message body can't be blank or over 255 characters.
+     * @param context The Javalin Context object manages information about both the HTTP request and response.
+     */
     private void createMessageHandler(Context context){
         Message potentialMessage = context.bodyAsClass(Message.class);
 
@@ -85,6 +98,10 @@ public class SocialMediaController {
             context.status(200);
         }
 
+    /*
+     * This handles getting all messages.
+     * @param context The Javalin Context object manages information about both the HTTP request and response.
+     */
     }
     private void getAllMessagesHandler(Context context){
         List<Message> messages = messageService.getAllMessages();
@@ -92,7 +109,11 @@ public class SocialMediaController {
         context.json(messages);
         context.status(200);
     }
-
+    /*
+     * This handles getting a message by it's message id. If the message is found then the message info is set as the body
+     * and status is set to 200. If not then status is set to 400.
+     * @param context The Javalin Context object manages information about both the HTTP request and response.
+     */
     private void getMessageByIdHandler(Context context){
        
         int id = Integer.valueOf(context.pathParam("message_id"));
@@ -104,7 +125,11 @@ public class SocialMediaController {
 
         context.status(200);
     }
-
+    /*
+     * This handles deleting a message. If the message is deleted for the first time then it returns the message info. Otherwise
+     * it returns nothing
+     * @param context The Javalin Context object manages information about both the HTTP request and response.
+     */
     private void deleteMessageHandler(Context context){
         int id = Integer.valueOf(context.pathParam("message_id"));
 
@@ -117,6 +142,11 @@ public class SocialMediaController {
         
     }
 
+    /*
+     * This handles updating a message. If the message is updated then we send the updated message info back with
+     * a status of 200. Otherwise send a status of 400.
+     * @param context The Javalin Context object manages information about both the HTTP request and response.
+     */
     private void updateMessageHandler(Context context){
         int id = Integer.valueOf(context.pathParam("message_id"));
         String JsonString = context.body();
@@ -134,6 +164,10 @@ public class SocialMediaController {
 
     }
 
+    /*
+     * This getting all messages from a user. 
+     * @param context The Javalin Context object manages information about both the HTTP request and response.
+     */
     private void getAllUserMessageHandler(Context context){
         int id = Integer.valueOf(context.pathParam("account_id"));
 

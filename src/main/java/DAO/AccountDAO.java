@@ -11,6 +11,11 @@ import Util.ConnectionUtil;
 
 public class AccountDAO {
 
+    /*
+     * Connects to the database and inserts an account into the database
+     * @param account the account that we are trying to insert
+     * @returns the account that was inserted with it's id or null if something went wrong
+     */
     public Account createAccount(Account account){
         try(Connection conn = ConnectionUtil.getConnection()){
 
@@ -42,6 +47,11 @@ public class AccountDAO {
         return null;
     }
 
+    /*
+     * Connects to the database and checks if the account is in the database
+     * @param account the account that we are trying to check
+     * @returns the account that was checked with it's id or null if something went wrong
+     */
     public Account logIn(Account account){
         try(Connection conn = ConnectionUtil.getConnection()){
             
